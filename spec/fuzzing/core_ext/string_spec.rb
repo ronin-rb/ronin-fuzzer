@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'ronin/fuzzing/extensions/string'
+require 'ronin/fuzzing/core_ext/string'
 
 describe String do
   it "should provide String.generate" do

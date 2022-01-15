@@ -22,7 +22,7 @@ require 'ronin/fuzzing/repeater'
 require 'ronin/fuzzing/fuzzer'
 require 'ronin/fuzzing/mutator'
 require 'ronin/fuzzing'
-require 'ronin/extensions/regexp'
+require 'ronin/core_ext/regexp'
 
 class String
 

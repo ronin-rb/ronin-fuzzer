@@ -17,4 +17,4 @@
 # along with ronin-support.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/fuzzing/extensions/string'
+require 'ronin/fuzzing/core_ext/string'
