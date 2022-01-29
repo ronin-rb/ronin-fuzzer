@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/fuzzing/repeater'
 
-describe Fuzzing::Repeater do
+describe Ronin::Fuzzing::Repeater do
   describe "#initialize" do
     subject { described_class }
 

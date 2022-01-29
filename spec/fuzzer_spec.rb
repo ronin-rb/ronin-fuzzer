@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/fuzzing/fuzzer'
 
-describe Fuzzing::Fuzzer do
+describe Ronin::Fuzzing::Fuzzer do
   let(:string) { 'GET /one/two/three' }
 
   describe "#initialize" do

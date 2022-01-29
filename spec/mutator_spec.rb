@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/fuzzing/mutator'
 
-describe Fuzzing::Mutator do
+describe Ronin::Fuzzing::Mutator do
   let(:string) { 'GET /one/two/three' }
 
   describe "#initialize" do

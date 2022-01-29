@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/fuzzing/template'
 
-describe Fuzzing::Template do
+describe Ronin::Fuzzing::Template do
   subject { described_class }
 
   it "should generate Strings from CharSets" do

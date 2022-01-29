@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ronin/fuzzing'
 
-describe Fuzzing do
+describe Ronin::Fuzzing do
   describe "[]" do
     let(:method) { :bad_strings }
 
