@@ -49,6 +49,12 @@ $ gem install ronin-fuzzer
 gem 'ronin-fuzzer', '~> 0.1'
 ```
 
+### gemspec
+
+```ruby
+gem.add_dependency 'ronin-fuzzer', '~> 0.1'
+```
+
 ## Development
 
 1. [Fork It!](https://github.com/ronin-rb/ronin-fuzzer/fork)
