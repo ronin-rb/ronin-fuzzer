@@ -39,11 +39,15 @@ $ ronin-fuzzer fuzz -i http_request.txt -o bad.txt -r unix_path:bad_strings
 
 ## Install
 
-    $ gem install ronin-fuzzer
+```shell
+$ gem install ronin-fuzzer
+```
 
 ### Gemfile
 
-    gem 'ronin-fuzzer', '~> 0.1'
+```ruby
+gem 'ronin-fuzzer', '~> 0.1'
+```
 
 ## Development
 
