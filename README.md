@@ -24,7 +24,11 @@ ronin-fuzzer is a Ruby library for generating, mutating, and fuzzing data.
 
 ## Synopsis
 
-    $ ronin-fuzzer
+Fuzzes an input file and generates output bad files for testing:
+
+```shell
+$ ronin-fuzzer fuzz -i http_request.txt -o bad.txt -r unix_path:bad_strings
+```
 
 ## Requirements
 

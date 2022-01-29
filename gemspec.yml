@@ -15,8 +15,8 @@ metadata:
   bug_tracker_uri:   https://github.com/ronin-rb/ronin-fuzzer/issues
   changelog_uri:     https://github.com/ronin-rb/ronin-fuzzer/blob/master/ChangeLog.md
 
-# generated_files:
-#  - man/ronin-fuzzer.1
+generated_files:
+ - man/ronin-fuzzer-fuzz.1
 
 required_ruby_version: ">= 2.7.0"
 
