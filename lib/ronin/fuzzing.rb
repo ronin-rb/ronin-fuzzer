@@ -32,8 +32,6 @@ module Ronin
   #
   # @see Fuzzing.[]
   #
-  # @since 0.4.0
-  #
   module Fuzzing
     # Short String lengths
     SHORT_LENGTHS = Set[1, 100, 500, 1_000, 10_000]

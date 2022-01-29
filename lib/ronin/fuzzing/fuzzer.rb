@@ -32,8 +32,6 @@ module Ronin
     #
     # @api semipublic
     #
-    # @since 0.5.0
-    #
     class Fuzzer
 
       # Patterns and their substitutions

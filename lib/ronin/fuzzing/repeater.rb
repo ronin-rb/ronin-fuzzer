@@ -26,8 +26,6 @@ module Ronin
     #
     # @api semipublic
     #
-    # @since 0.5.0
-    #
     class Repeater
 
       # The lengths to repeat the data by

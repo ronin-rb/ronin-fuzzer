@@ -83,8 +83,6 @@ class String
   #     puts path
   #   end
   #
-  # @since 0.3.0
-  #
   # @api public
   #
   def self.generate(*fields,&block)
@@ -124,8 +122,6 @@ class String
   #   end
   #
   # @api public
-  #
-  # @since 0.4.0
   #
   def repeating(lengths,&block)
     case lengths
@@ -168,8 +164,6 @@ class String
   # @example Replace a {Regexp::UNIX_PATH} with {Ronin::Fuzzing#format_strings}:
   #   "GET /downloads/".fuzz(unix_path: :format_string)
   #
-  # @since 0.3.0
-  #
   # @api public
   #
   def fuzz(substitutions={},&block)
@@ -199,8 +193,6 @@ class String
   #   "hello old dog".mutate('e' => ['3'], 'l' => ['1'], 'o' => ['0']) do |str|
   #     puts str
   #   end
-  #
-  # @since 0.4.0
   #
   # @api public
   #

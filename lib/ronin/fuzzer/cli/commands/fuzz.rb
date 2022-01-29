@@ -57,8 +57,6 @@ module Ronin
         #
         #     ronin-fuzzer fuzz -i request.txt -r unix_path:bad_strings -o bad.txt
         #
-        # @since 1.5.0
-        #
         class Fuzz < Command
 
           option :input, short: '-i',
