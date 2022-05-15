@@ -27,8 +27,8 @@ describe Ronin::Fuzzing::Mutator do
       context "when given Symbols" do
         subject { described_class.new(:word => substitutions) }
 
-        it "should lookup the Regexp constant" do
-          expect(subject.rules).to have_key(Regexp::WORD)
+        it "should lookup the Ronin::Support::Text::Patterns constant" do
+          expect(subject.rules).to have_key(Ronin::Support::Text::Patterns::WORD)
         end
       end
 

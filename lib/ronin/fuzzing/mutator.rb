@@ -20,7 +20,7 @@
 #
 
 require 'ronin/fuzzing'
-require 'ronin/support/core_ext/regexp'
+require 'ronin/support/text/patterns'
 
 require 'combinatorics/list_comprehension'
 require 'combinatorics/power_set'
@@ -37,6 +37,8 @@ module Ronin
     # @api semipublic
     #
     class Mutator
+
+      PATTERNS = Support::Text::Patterns
 
       # Mutation rules
       attr_reader :rules
@@ -61,7 +63,7 @@ module Ronin
                     when String
                       Regexp.new(Regexp.escape(pattern))
                     when Symbol
-                      Regexp.const_get(pattern.upcase)
+                      PATTERNS.const_get(pattern.upcase)
                     else
                       raise(TypeError,"cannot convert #{pattern.inspect} to a Regexp")
                     end

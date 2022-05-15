@@ -20,7 +20,7 @@
 #
 
 require 'ronin/fuzzing'
-require 'ronin/support/core_ext/regexp'
+require 'ronin/support/text/patterns'
 
 require 'strscan'
 
@@ -33,6 +33,8 @@ module Ronin
     # @api semipublic
     #
     class Fuzzer
+
+      PATTERNS = Support::Text::Patterns
 
       # Patterns and their substitutions
       attr_reader :rules
@@ -50,7 +52,7 @@ module Ronin
           pattern = case pattern
                     when Regexp then pattern
                     when String then Regexp.new(Regexp.escape(pattern))
-                    when Symbol then Regexp.const_get(pattern.upcase)
+                    when Symbol then PATTERNS.const_get(pattern.upcase)
                     else
                       raise(TypeError,"cannot convert #{pattern.inspect} to a Regexp")
                     end
