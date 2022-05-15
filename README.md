@@ -32,7 +32,7 @@ $ ronin-fuzzer fuzz -i http_request.txt -o bad.txt -r unix_path:bad_strings
 
 ## Requirements
 
-* [Ruby] >= 2.7.0
+* [Ruby] >= 3.0.0
 * [combinatorics] ~> 0.4
 * [ronin-support] ~> 1.0
 * [ronin-core] ~> 0.1
