@@ -33,4 +33,5 @@ group :development do
 
   gem 'dead_end',        require: false
   gem 'sord',            require: false
+  gem 'stackprof',       require: false
 end
