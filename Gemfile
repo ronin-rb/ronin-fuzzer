@@ -25,6 +25,7 @@ group :development do
   gem 'simplecov',       '~> 0.20'
 
   gem 'kramdown',        '~> 2.0'
+  gem 'redcarpet',       platform: :mri
   gem 'kramdown-man',    '~> 0.1'
 
   gem 'yard',            '~> 0.9'
