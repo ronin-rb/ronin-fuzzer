@@ -1,7 +1,7 @@
 #
 # ronin-fuzzer - A Ruby library for generating, mutating, and fuzzing data.
 #
-# Copyright (c) 2006-2022 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This file is part of ronin-fuzzer.
 #
