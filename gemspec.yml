@@ -23,7 +23,7 @@ required_ruby_version: ">= 3.0.0"
 dependencies:
   combinatorics: ~> 0.4
   # Ronin dependencies:
-  ronin-support: ~> 1.0
+  ronin-support: ~> 1.0.0.beta1
   ronin-core: ~> 0.1
 
 development_dependencies:
