@@ -2,6 +2,7 @@ name: ronin-fuzzer
 summary: generate, mutate, and fuzz data
 description: |
   A Ruby library and CLI for generating, mutating, and fuzzing data.
+  The goal of ronin-fuzzer is to be both easy to use and highly customizable.
 
 license: LGPL-3.0
 authors: Postmodern

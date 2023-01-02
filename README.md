@@ -14,7 +14,8 @@
 ## Description
 
 ronin-fuzzer is a Ruby library and CLI for generating, mutating, and fuzzing
-data.
+data. The goal of ronin-fuzzer is to be both easy to use and highly
+customizable.
 
 ## Features
 
