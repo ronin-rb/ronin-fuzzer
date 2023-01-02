@@ -13,7 +13,8 @@
 
 ## Description
 
-ronin-fuzzer is a Ruby library for generating, mutating, and fuzzing data.
+ronin-fuzzer is a Ruby library and CLI for generating, mutating, and fuzzing
+data.
 
 ## Features
 
