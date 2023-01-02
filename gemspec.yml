@@ -1,5 +1,5 @@
 name: ronin-fuzzer
-summary: generate, mutate, and fuzz data
+summary: A highly configurable fuzzing library and CLI for Ruby.
 description: |
   A Ruby library and CLI for generating, mutating, and fuzzing data.
   The goal of ronin-fuzzer is to be both easy to use and highly customizable.
