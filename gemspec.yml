@@ -14,7 +14,7 @@ metadata:
   documentation_uri: https://ronin-rb.dev/docs/ronin-fuzzer
   source_code_uri:   https://github.com/ronin-rb/ronin-fuzzer
   bug_tracker_uri:   https://github.com/ronin-rb/ronin-fuzzer/issues
-  changelog_uri:     https://github.com/ronin-rb/ronin-fuzzer/blob/master/ChangeLog.md
+  changelog_uri:     https://github.com/ronin-rb/ronin-fuzzer/blob/main/ChangeLog.md
 
 generated_files:
  - man/ronin-fuzzer-fuzz.1
