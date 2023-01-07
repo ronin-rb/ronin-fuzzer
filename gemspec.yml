@@ -15,6 +15,7 @@ metadata:
   source_code_uri:   https://github.com/ronin-rb/ronin-fuzzer
   bug_tracker_uri:   https://github.com/ronin-rb/ronin-fuzzer/issues
   changelog_uri:     https://github.com/ronin-rb/ronin-fuzzer/blob/main/ChangeLog.md
+  rubygems_mfa_required: 'true'
 
 generated_files:
  - man/ronin-fuzzer-fuzz.1
