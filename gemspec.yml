@@ -11,7 +11,7 @@ homepage: https://ronin-rb.dev/
 has_yard: true
 
 metadata:
-  documentation_uri: https://rubydoc.info/gems/ronin-fuzzer
+  documentation_uri: https://ronin-rb.dev/docs/ronin-fuzzer
   source_code_uri:   https://github.com/ronin-rb/ronin-fuzzer
   bug_tracker_uri:   https://github.com/ronin-rb/ronin-fuzzer/issues
   changelog_uri:     https://github.com/ronin-rb/ronin-fuzzer/blob/master/ChangeLog.md
