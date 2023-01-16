@@ -196,7 +196,7 @@ module Ronin
           end
 
           #
-          # Sets up the fuzz command.
+          # Runs the `ronin-fuzzer fuzz` command.
           #
           def run
             if @rules.empty?
