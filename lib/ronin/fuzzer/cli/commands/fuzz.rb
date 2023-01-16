@@ -86,28 +86,45 @@ module Ronin
                             type:  String,
                             usage: 'PATH'
                           },
-                          desc: 'Output file path'
+                          desc: 'Output file path' do |value|
+                            @mode = :output
+
+                            @output      = value
+                            @output_ext  = File.extname(@output)
+                            @output_name = @output.chomp(@output_ext)
+                          end
 
           option :command, short: '-c',
                            value: {
                              type:  String,
                              usage: '"PROGRAM [OPTIONS|#string#|#path#] ..."'
                            },
-                           desc: 'Template command to run'
+                           desc: 'Template command to run' do |value|
+                             @mode    = :command
+                             @command = Shellwords.shellescape(value)
+                           end
 
           option :tcp, short: '-t',
                        value: {
                          type:  String,
                          usage: 'HOST:PORT'
                        },
-                       desc: 'TCP service to fuzz'
+                       desc: 'TCP service to fuzz' do |value|
+                         @mode = :tcp
+
+                         @host, @port = parse_host_port(value)
+                       end
 
           option :udp, short: '-u',
                        value: {
                          type:  String,
                          usage: 'HOST:PORT'
                        },
-                       desc: 'UDP service to fuzz'
+                       desc: 'UDP service to fuzz' do |value|
+                         @mode = :udp
+
+                         @host, @port = parse_host_port(value)
+                       end
 
           option :pause, short: '-p',
                          value: {
@@ -125,6 +142,41 @@ module Ronin
           ]
 
           man_page 'ronin-fuzzer-fuzz.1'
+
+          # The execution mode to run the fuzzer in.
+          #
+          # @return [:output, :command, :tcp, :udp]
+          attr_reader :mode
+
+          # The output file template.
+          #
+          # @return [String, nil]
+          attr_reader :output
+
+          # The output file extension.
+          #
+          # @return [String, nil]
+          attr_reader :output_ext
+
+          # The output file name.
+          #
+          # @return [String, nil]
+          attr_reader :output_name
+
+          # The command template to execute.
+          #
+          # @return [String, nil]
+          attr_reader :command
+
+          # The host name to send fuzzing data to.
+          #
+          # @return [String, nil]
+          attr_reader :host
+
+          # The port to send fuzzing data to.
+          #
+          # @return [Integer, nil]
+          attr_reader :port
 
           # The fuzzing rules.
           #
@@ -152,36 +204,19 @@ module Ronin
               exit(-1)
             end
 
-            if options[:output]
-              @output    = options[:output]
-              @file_ext  = File.extname(@output)
-              @file_name = @output.chomp(@file_ext)
-            elsif options[:command]
-              @command = shellwords(options[:command])
-            elsif (options[:tcp] || options[:udp])
-              @socket_class = if    options[:tcp] then TCPSocket
-                              elsif options[:udp] then UDPSocket
-                              end
+            data = if options[:input] then File.read(options[:input])
+                   else                    $stdin.read
+                   end
 
-              @host, @port = (options[:tcp] || options[:udp]).split(':',2)
-              @port = @port.to_i
-            end
-
-            data   = if options[:input] then File.read(options[:input])
-                     else                    $stdin.read
-                     end
-
-            method = if options[:output]
-                       method(:fuzz_file)
-                     elsif options[:command]
-                       method(:fuzz_command)
-                     elsif (options[:tcp] || options[:udp])
-                       method(:fuzz_network)
-                     else
-                       method(:print_fuzz)
+            method = case @mode
+                     when :output    then method(:fuzz_file)
+                     when :command   then method(:fuzz_command)
+                     when :tcp, :udp then method(:fuzz_network)
+                     else                 method(:print_fuzz)
                      end
 
             fuzzer = Fuzzing::Fuzzer.new(@rules)
+
             fuzzer.each(data).each_with_index do |string,index|
               method.call(string,index + 1)
 
@@ -189,9 +224,18 @@ module Ronin
             end
           end
 
-          private
-
-          include Shellwords
+          #
+          # Creates a new output path for the given index.
+          #
+          # @param [Integer] index
+          #   The index number of the fuzzing iteration.
+          #
+          # @return [String]
+          #   The new output path.
+          #
+          def output_path(index)
+            "#{@output_name}-#{index}#{@output_ext}"
+          end
 
           #
           # Writes the fuzzed string to a file.
@@ -200,10 +244,10 @@ module Ronin
           #   The fuzzed string.
           #
           # @param [Integer] index
-          #   The iteration number.
+          #   The fuzzing iteration number.
           #
           def fuzz_file(string,index)
-            path = "#{@file_name}-#{index}#{@file_ext}"
+            path = output_path(index)
 
             log_info "Creating file ##{index}: #{path} ..."
 
@@ -264,7 +308,11 @@ module Ronin
           #
           def fuzz_network(string,index)
             log_debug "Connecting to #{@host}:#{@port} ..."
-            socket = @socket_class.new(@host,@port)
+
+            socket = case @mode
+                     when :tcp then TCPSocket.new(@host,@port)
+                     when :udp then UDPSocket.new(@host,@port)
+                     end
 
             log_info "Sending message ##{index}: #{string.inspect} ..."
             socket.write(string)
@@ -287,6 +335,21 @@ module Ronin
             log_debug "String ##{index} ..."
 
             puts string
+          end
+
+          #
+          # Parses the host and port from the value.
+          #
+          # @param [String] value
+          #   The value to parse.
+          #
+          # @return [(String, Integer)]
+          #   The parsed host and port.
+          #
+          def parse_host_port(value)
+            host, port = value.split(':',2)
+
+            return host, port.to_i
           end
 
           #
