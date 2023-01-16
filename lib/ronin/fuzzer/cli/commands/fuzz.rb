@@ -22,6 +22,7 @@
 require 'ronin/fuzzer/cli/command'
 require 'ronin/core/cli/logging'
 
+require 'ronin/support/text/patterns'
 require 'ronin/fuzzing/repeater'
 require 'ronin/fuzzing/fuzzer'
 require 'ronin/fuzzing'
@@ -333,9 +334,8 @@ module Ronin
             when /^[a-z][a-z_]+$/
               const = string.upcase
 
-              if (Regexp.const_defined?(const) &&
-                  Regexp.const_get(const).kind_of?(Regexp))
-                Regexp.const_get(const)
+              if Support::Text::Patterns.const_defined?(const,false)
+                Support::Text::Patterns.const_get(const,false)
               else
                 string
               end
