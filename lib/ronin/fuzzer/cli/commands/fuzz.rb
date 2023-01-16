@@ -20,8 +20,8 @@
 #
 
 require 'ronin/fuzzer/cli/command'
-require 'ronin/fuzzer/repeater'
-require 'ronin/fuzzer/fuzzer'
+require 'ronin/fuzzing/repeater'
+require 'ronin/fuzzing'
 
 require 'shellwords'
 require 'tempfile'
