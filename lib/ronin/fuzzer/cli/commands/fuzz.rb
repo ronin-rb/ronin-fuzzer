@@ -114,7 +114,9 @@ module Ronin
                            type:  Float,
                            usage: 'SECONDS'
                          },
-                         desc: 'Pause in between mutations'
+                         desc: 'Pause in between mutations' do |value|
+                           @pause = value
+                         end
 
           description 'Performs basic fuzzing of files'
 
@@ -183,7 +185,7 @@ module Ronin
             fuzzer.each(data).each_with_index do |string,index|
               method.call(string,index + 1)
 
-              sleep(options[:pause]) if options[:pause]
+              sleep(@pause) if @pause
             end
           end
 
