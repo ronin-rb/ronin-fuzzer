@@ -40,8 +40,8 @@ to output files, run in commands or sent to TCP/UDP services.
 	The output PATH to write the fuzzer to.
 
 `-c`, `--command` *COMMAND*
-	The command to run with the fuzzed data. All ocurrences of `#string#`
-	will be replaced with the fuzzed data, and ocurrences of `#path#` will
+	The command to run with the fuzzed data. All occurrences of `#string#`
+	will be replaced with the fuzzed data, and occurrences of `#path#` will
 	be replaced with the path to the fuzzed data.
 
 `-t`, `--tcp` *HOST*:*PORT*
