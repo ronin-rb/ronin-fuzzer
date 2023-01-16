@@ -20,7 +20,10 @@
 #
 
 require 'ronin/fuzzer/cli/command'
+require 'ronin/core/cli/logging'
+
 require 'ronin/fuzzing/repeater'
+require 'ronin/fuzzing/fuzzer'
 require 'ronin/fuzzing'
 
 require 'shellwords'
@@ -44,7 +47,7 @@ module Ronin
         #     -q, --[no-]quiet                 Disable verbose output.
         #         --[no-]silent                Silence all output.
         #     -r [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
-        #         --rule                       Fuzzing rules.
+        #         --rule                       Adds a fuzzing rule.
         #     -i, --input [FILE]               Input file to fuzz.
         #     -o, --output [FILE]              Output file path.
         #     -c [PROGRAM [OPTIONS|#string#|#path#] ...],
@@ -59,6 +62,8 @@ module Ronin
         #
         class Fuzz < Command
 
+          include Core::CLI::Logging
+
           option :input, short: '-i',
                          value: {
                            type:  String,
@@ -68,10 +73,12 @@ module Ronin
 
           option :rules, short: '-r',
                          value: {
-                           type:  Hash[String => String],
+                           type:  String,
                            usage: '[PATTERN|/REGEXP/|STRING]:[METHOD|STRING*N[-M]]'
                          },
-                         desc: 'Fuzzing rules'
+                         desc: 'Adds a fuzzing rule' do |value|
+                           @rules << parse_rule(value)
+                         end
 
           option :output, short: '-o',
                           value: {
@@ -116,21 +123,35 @@ module Ronin
 
           man_page 'ronin-fuzzer-fuzz.1'
 
+          # The fuzzing rules.
+          #
+          # @return [Array<(Regexp, Enumerator)>]
+          attr_reader :rules
+
+          #
+          # Initializes the `ronin-fuzzer fuzz` command.
+          #
+          # @param [Hash{Symbol => Object}] kwargs
+          #   Additional keyword arguments.
+          #
+          def initialize(**kwargs)
+            super(**kwargs)
+
+            @rules = []
+          end
+
           #
           # Sets up the fuzz command.
           #
           def run
-            unless options[:rules]
+            if @rules.empty?
               print_error "Must specify at least one fuzzing rule"
-              exit -1
+              exit(-1)
             end
 
-            rules = Hash[options[:rules].map { |pattern,substitution|
-              [parse_pattern(pattern), parse_substitution(substitution)]
-            }]
-
             if options[:output]
-              @file_ext  = File.extname(options[:output])
+              @output    = options[:output]
+              @file_ext  = File.extname(@output)
               @file_name = @output.chomp(@file_ext)
             elsif options[:command]
               @command = shellwords(options[:command])
@@ -157,11 +178,11 @@ module Ronin
                        method(:print_fuzz)
                      end
 
-            fuzzer = Fuzzer::Fuzzer.new(rules)
+            fuzzer = Fuzzing::Fuzzer.new(@rules)
             fuzzer.each(data).each_with_index do |string,index|
               method.call(string,index + 1)
 
-              sleep(pause) if pause?
+              sleep(options[:pause]) if options[:pause]
             end
           end
 
@@ -181,7 +202,7 @@ module Ronin
           def fuzz_file(string,index)
             path = "#{@file_name}-#{index}#{@file_ext}"
 
-            print_info "Creating file ##{index}: #{path} ..."
+            log_info "Creating file ##{index}: #{path} ..."
 
             File.open(path,'wb') do |file|
               file.write string
@@ -212,7 +233,7 @@ module Ronin
                 end
               end
 
-              print_info "Running command #{index}: #{arguments.join(' ')} ..."
+              log_info "Running command #{index}: #{arguments.join(' ')} ..."
 
               # run the command as it's own process
               unless system(*arguments)
@@ -220,10 +241,10 @@ module Ronin
 
                 if status.coredump?
                   # jack pot!
-                  print_error "Process ##{status.pid} coredumped!"
+                  log_error "Process ##{status.pid} coredumped!"
                 else
                   # process errored out
-                  print_warning "Process ##{status.pid} exited with status #{status.exitstatus}"
+                  log_warning "Process ##{status.pid} exited with status #{status.exitstatus}"
                 end
               end
             end
@@ -239,14 +260,14 @@ module Ronin
           #   The iteration number.
           #
           def fuzz_network(string,index)
-            print_debug "Connecting to #{@host}:#{@port} ..."
+            log_debug "Connecting to #{@host}:#{@port} ..."
             socket = @socket_class.new(@host,@port)
 
-            print_info "Sending message ##{index}: #{string.inspect} ..."
+            log_info "Sending message ##{index}: #{string.inspect} ..."
             socket.write(string)
             socket.flush
 
-            print_debug "Disconnecting from #{@host}:#{@port} ..."
+            log_debug "Disconnecting from #{@host}:#{@port} ..."
             socket.close
           end
 
@@ -260,9 +281,40 @@ module Ronin
           #   The iteration number.
           #
           def print_fuzz(string,index)
-            print_debug "String ##{index} ..."
+            log_debug "String ##{index} ..."
 
             puts string
+          end
+
+          #
+          # Parses a fuzzing rule.
+          #
+          # @param [String] string
+          #   The fuzzing rule.
+          #
+          # @eturn [(Regexp, Enumerator)]
+          #   The fuzzing pattern and list of substitutions.
+          #
+          def parse_rule(value)
+            if value.start_with?('/')
+              unless (index = value.rindex('/:'))
+                raise(OptionParser::InvalidArgument,"argument must be of the form /REGEXP/:REPLACE, but was: #{value}")
+              end
+
+              regexp       = parse_pattern(value[1...index])
+              substitution = parse_substitution(value[index+2..])
+
+              return [regexp, substitution]
+            else
+              unless (index = value.rindex(':'))
+                raise(OptionParser::InvalidArgument,"argument must be of the form STRING:STYLE but was: #{value}")
+              end
+
+              pattern      = parse_pattern(value[0...index])
+              substitution = parse_substitution(value[index+1..])
+
+              return [pattern, substitution]
+            end
           end
 
           #
@@ -313,9 +365,9 @@ module Ronin
                           lengths.to_i
                         end
 
-              Fuzzer::Repeater.new(lengths).each(string)
+              Fuzzing::Repeater.new(lengths).each(string)
             else
-              Fuzzer[string]
+              Fuzzing[string]
             end
           end
 
