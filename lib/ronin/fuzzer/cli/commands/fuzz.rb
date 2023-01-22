@@ -355,7 +355,7 @@ module Ronin
           #
           # Parses a fuzzing rule.
           #
-          # @param [String] string
+          # @param [String] value
           #   The fuzzing rule.
           #
           # @eturn [(Regexp, Enumerator)]
