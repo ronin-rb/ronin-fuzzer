@@ -358,7 +358,7 @@ module Ronin
           # @param [String] value
           #   The fuzzing rule.
           #
-          # @eturn [(Regexp, Enumerator)]
+          # @return [(Regexp, Enumerator)]
           #   The fuzzing pattern and list of substitutions.
           #
           def parse_rule(value)
