@@ -33,9 +33,8 @@ class String
   #
   # @param [Array(<String,Symbol,Enumerable>, <Integer,Array,Range>)] fields
   #   The fields which defines the string or character sets which will
-  #   make up parts of the String. Symbols can be
-  #   [Text::Random method names](https://ronin-rb.dev/docs/ronin-support/Ronin/Support/Text/Random.html)
-  #   from [ronin-support](https://github.com/ronin-rb/ronin-support).
+  #   make up parts of the String. Symbols corresponds to
+  #   [Chars method names](https://rubydoc.info/gems/chars/Chars).
   #
   # @yield [string]
   #   The given block will be passed each unique String.
