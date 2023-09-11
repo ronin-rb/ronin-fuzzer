@@ -33,7 +33,8 @@ class String
   #
   # @param [Array(<String,Symbol,Enumerable>, <Integer,Array,Range>)] fields
   #   The fields which defines the string or character sets which will
-  #   make up parts of the String.
+  #   make up parts of the String. Symbols corresponds to
+  #   [Chars method names](https://rubydoc.info/gems/chars/Chars).
   #
   # @yield [string]
   #   The given block will be passed each unique String.
@@ -161,8 +162,8 @@ class String
   #     p str
   #   end
   #
-  # @example Replace a UNIX path with every {Ronin::Fuzzing#format_strings}:
-  #   "GET /downloads/".fuzz(unix_path: :format_string)
+  # @example Replace a `Regexp::UNIX_PATH` with {Ronin::Fuzzing#format_strings}:
+  #   "GET /downloads/".fuzz(unix_path: :format_strings)
   #
   # @api public
   #
