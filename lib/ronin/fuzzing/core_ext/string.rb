@@ -138,7 +138,8 @@ class String
   # Incrementally fuzzes the String.
   #
   # @param [Hash{Regexp,String,Symbol => Enumerable,Symbol}] substitutions
-  #   Patterns and their substitutions.
+  #   Patterns and their substitutions. Symbols are resolved to
+  #   [Ronin::Support::Text::Patterns](https://ronin-rb.dev/docs/ronin-support/Ronin/Support/Text/Patterns.html).
   #
   # @yield [fuzz]
   #   The given block will be passed every fuzzed String.
@@ -159,7 +160,7 @@ class String
   #     p str
   #   end
   #
-  # @example Replace a [`Regexp::UNIX_PATH`](https://ronin-rb.dev/docs/ronin-support/Regexp.html) (from [ronin-support](https://github.com/ronin-rb/ronin-support) with {Ronin::Fuzzing#format_strings}:
+  # @example Replace a UNIX path with every {Ronin::Fuzzing#format_strings}:
   #   "GET /downloads/".fuzz(unix_path: :format_string)
   #
   # @api public
