@@ -51,8 +51,6 @@ class String
   #   A given string set was not a String, Symbol or Enumerable.
   #   A given string set length was not an Integer or Enumerable.
   #
-  # @example Generate Strings with ranges of repeating sub-strings:
-  #
   # @example Generate Strings with three alpha chars and one numeric chars:
   #   String.generate([:alpha, 3], :numeric) do |password|
   #     puts password
@@ -161,7 +159,7 @@ class String
   #     p str
   #   end
   #
-  # @example Replace a `Regexp::UNIX_PATH` with {Ronin::Fuzzing#format_strings}:
+  # @example Replace a [`Regexp::UNIX_PATH`](https://ronin-rb.dev/docs/ronin-support/Regexp.html) (from [ronin-support](https://github.com/ronin-rb/ronin-support) with {Ronin::Fuzzing#format_strings}:
   #   "GET /downloads/".fuzz(unix_path: :format_string)
   #
   # @api public
