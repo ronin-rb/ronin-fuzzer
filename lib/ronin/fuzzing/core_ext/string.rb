@@ -139,7 +139,8 @@ class String
   #
   # @param [Hash{Regexp,String,Symbol => Enumerable,Symbol}] substitutions
   #   Patterns and their substitutions. Symbols are resolved to
-  #   [Ronin::Support::Text::Patterns](https://ronin-rb.dev/docs/ronin-support/Ronin/Support/Text/Patterns.html).
+  #   [Ronin::Support::Text::Patterns](https://ronin-rb.dev/docs/ronin-support/Ronin/Support/Text/Patterns.html)
+  #   constants.
   #
   # @yield [fuzz]
   #   The given block will be passed every fuzzed String.
