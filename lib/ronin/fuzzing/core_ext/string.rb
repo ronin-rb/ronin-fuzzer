@@ -52,8 +52,6 @@ class String
   #   A given string set was not a String, Symbol or Enumerable.
   #   A given string set length was not an Integer or Enumerable.
   #
-  # @example Generate Strings with ranges of repeating sub-strings:
-  #
   # @example Generate Strings with three alpha chars and one numeric chars:
   #   String.generate([:alpha, 3], :numeric) do |password|
   #     puts password
@@ -141,7 +139,9 @@ class String
   # Incrementally fuzzes the String.
   #
   # @param [Hash{Regexp,String,Symbol => Enumerable,Symbol}] substitutions
-  #   Patterns and their substitutions.
+  #   Patterns and their substitutions. Symbols are resolved to
+  #   [Ronin::Support::Text::Patterns](https://ronin-rb.dev/docs/ronin-support/Ronin/Support/Text/Patterns.html)
+  #   constants.
   #
   # @yield [fuzz]
   #   The given block will be passed every fuzzed String.
