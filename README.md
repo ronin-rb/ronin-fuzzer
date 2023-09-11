@@ -26,15 +26,13 @@ customizable.
 
 ## Synopsis
 
-### CLI
-
 Fuzzes an input file and generates output bad files for testing:
 
 ```shell
 $ ronin-fuzzer fuzz -i http_request.txt -o bad.txt -r unix_path:bad_strings
 ```
 
-### Library
+## Examples
 
 Replace every `e`, `i`, `o`, `u` with `(`, 100 `A`s and a `\0`:
 
@@ -46,7 +44,7 @@ require 'ronin/fuzzing'
 end
 ```
 
-More examples on [the documentation](https://ronin-rb.dev/docs/ronin-fuzzer/String.html).
+For more examples, please see the [API documentation](https://ronin-rb.dev/docs/ronin-fuzzer/String.html).
 
 ## Requirements
 
