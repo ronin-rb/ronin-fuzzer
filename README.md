@@ -32,6 +32,20 @@ Fuzzes an input file and generates output bad files for testing:
 $ ronin-fuzzer fuzz -i http_request.txt -o bad.txt -r unix_path:bad_strings
 ```
 
+## Examples
+
+Replace every `e`, `i`, `o`, `u` with `(`, 100 `A`s and a `\0`:
+
+```ruby
+require 'ronin/fuzzing'
+
+"the quick brown fox".fuzz(/[eiou]/ => ['(', ('A' * 100), "\0"]) do |str|
+  p str
+end
+```
+
+For more examples, please see the [API documentation](https://ronin-rb.dev/docs/ronin-fuzzer/String.html).
+
 ## Requirements
 
 * [Ruby] >= 3.0.0
