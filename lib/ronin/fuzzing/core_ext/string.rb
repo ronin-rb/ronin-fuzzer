@@ -33,7 +33,8 @@ class String
   #
   # @param [Array(<String,Symbol,Enumerable>, <Integer,Array,Range>)] fields
   #   The fields which defines the string or character sets which will
-  #   make up parts of the String.
+  #   make up parts of the String. Symbols corresponds to
+  #   [Chars method names](https://rubydoc.info/gems/chars/Chars).
   #
   # @yield [string]
   #   The given block will be passed each unique String.
