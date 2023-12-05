@@ -1,5 +1,9 @@
 # ronin-fuzzer-fuzz 1 "2022-01-01" Ronin Fuzzer "User Manuals"
 
+## NAME
+
+ronin-fuzzer-fuzz - Performs basic fuzzing of files
+
 ## SYNOPSIS
 
 `ronin-fuzzer fuzz` [*options*] [*TEMPLATE*]
