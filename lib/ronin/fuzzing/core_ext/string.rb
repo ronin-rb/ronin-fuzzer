@@ -31,7 +31,7 @@ class String
   #
   # Generate permutations of Strings from a format template.
   #
-  # @param [Array(<String,Symbol,Enumerable>, <Integer,Array,Range>)] fields
+  # @param [Array(<String,Symbol,Enumerable>, <Integer,Array,Range,Enumerator::ArithmeticSequence>)] fields
   #   The fields which defines the string or character sets which will
   #   make up parts of the String. Symbols corresponds to
   #   [Chars method names](https://rubydoc.info/gems/chars/Chars).
