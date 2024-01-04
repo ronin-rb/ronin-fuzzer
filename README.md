@@ -51,7 +51,7 @@ For more examples, please see the [API documentation](https://ronin-rb.dev/docs/
 * [Ruby] >= 3.0.0
 * [combinatorics] ~> 0.4
 * [ronin-support] ~> 1.0
-* [ronin-core] ~> 0.1
+* [ronin-core] ~> 0.2
 
 ## Install
 
