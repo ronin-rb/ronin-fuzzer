@@ -36,4 +36,6 @@ group :development do
   gem 'dead_end',        require: false
   gem 'sord',            require: false, platform: :mri
   gem 'stackprof',       require: false, platform: :mri
+
+  gem 'command_kit-completion', '~> 0.1', require: false
 end
