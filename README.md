@@ -84,7 +84,7 @@ gem.add_dependency 'ronin-fuzzer', '~> 0.1'
 
 ## License
 
-Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3@gmail.com)
+Copyright (c) 2006-2024 Hal Brodigan (postmodern.mod3@gmail.com)
 
 This file is part of ronin-fuzzer.
 
