@@ -37,5 +37,5 @@ group :development do
   gem 'sord',            require: false, platform: :mri
   gem 'stackprof',       require: false, platform: :mri
 
-  gem 'command_kit-completion', '~> 0.1', require: false
+  gem 'command_kit-completion', '~> 0.2', require: false
 end
