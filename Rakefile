@@ -39,3 +39,5 @@ CommandKit::Completion::Task.new(
   class_name:  'Ronin::Fuzzer::CLI',
   output_file: 'data/completions/ronin-fuzzer'
 )
+
+task :setup => %w[man command_kit:completion]
