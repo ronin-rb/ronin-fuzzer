@@ -1,3 +1,10 @@
+### 0.2.0 / 2024-XX-XX
+
+#### CLI
+
+* Added the `ronin-fuzzer completion` command to install shell completion files
+  for all `ronin-fuzzer` commands for Bash and Zsh shells.
+
 ### 0.1.0 / 2023-02-01
 
 * Initial release:
