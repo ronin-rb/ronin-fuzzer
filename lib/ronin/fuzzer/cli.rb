@@ -21,6 +21,7 @@
 
 require 'command_kit/commands'
 require 'command_kit/commands/auto_load'
+require 'command_kit/options/version'
 
 require 'ronin/core/cli/command'
 require 'ronin/core/cli/help/banner'
@@ -34,9 +35,11 @@ module Ronin
         dir:       "#{__dir__}/cli/commands",
         namespace: "#{self}::Commands"
       )
+      include CommandKit::Options::Version
       include Core::CLI::Help::Banner
 
       command_name 'ronin-fuzzer'
+      version Ronin::Fuzzer::VERSION
 
     end
   end
