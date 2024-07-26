@@ -72,7 +72,7 @@ module Ronin
           case length
           when Integer
             length.times { @enumerators << enum.dup }
-          when Array, Range
+          when Array, Range, Enumerator::ArithmeticSequence
             @enumerators << Combinatorics::Generator.new do |g|
               length.each do |sublength|
                 superset = Array.new(sublength) { enum.dup }
@@ -83,7 +83,7 @@ module Ronin
           when nil
             @enumerators << enum
           else
-            raise(TypeError,"length must be an Integer, Range or Array")
+            raise(TypeError,"length must be an Integer, Range, Array or Enumerator::ArithmeticSequence")
           end
         end
       end
